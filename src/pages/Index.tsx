@@ -14,6 +14,7 @@ const Index = () => {
   const [checkIn, setCheckIn] = useState<Date>();
   const [checkOut, setCheckOut] = useState<Date>();
   const [activeSection, setActiveSection] = useState("hero");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -87,11 +88,75 @@ const Index = () => {
               <button onClick={() => scrollToSection("booking")} className="text-sm hover:text-accent transition-colors">Бронирование</button>
               <button onClick={() => scrollToSection("contacts")} className="text-sm hover:text-accent transition-colors">Контакты</button>
             </div>
-            <Button onClick={() => scrollToSection("booking")} className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              Забронировать
-            </Button>
+            <div className="flex items-center gap-3">
+              <Button onClick={() => scrollToSection("booking")} className="hidden md:flex bg-accent hover:bg-accent/90 text-accent-foreground">
+                Забронировать
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <Icon name={mobileMenuOpen ? "X" : "Menu"} size={24} />
+              </Button>
+            </div>
           </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-background border-t border-border animate-fade-in">
+            <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
+              <button 
+                onClick={() => { scrollToSection("hero"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Главная
+              </button>
+              <button 
+                onClick={() => { scrollToSection("rooms"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Номера
+              </button>
+              <button 
+                onClick={() => { scrollToSection("gallery"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Галерея
+              </button>
+              <button 
+                onClick={() => { scrollToSection("location"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Локация
+              </button>
+              <button 
+                onClick={() => { scrollToSection("reviews"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Отзывы
+              </button>
+              <button 
+                onClick={() => { scrollToSection("booking"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Бронирование
+              </button>
+              <button 
+                onClick={() => { scrollToSection("contacts"); setMobileMenuOpen(false); }} 
+                className="text-left py-2 hover:text-accent transition-colors"
+              >
+                Контакты
+              </button>
+              <Button 
+                onClick={() => { scrollToSection("booking"); setMobileMenuOpen(false); }} 
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground mt-2"
+              >
+                Забронировать
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section id="hero" className="pt-20 min-h-screen flex items-center relative overflow-hidden">
